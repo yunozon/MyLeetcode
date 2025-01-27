@@ -29,6 +29,25 @@ class Solution:
         else:
             return False
         
+    # another solution
+    def isValid2(self, s: str) -> bool:
+        stack = []
+        closeToOpen = {')':'(', ']':'[', '}':'{'} # 以前はopenとcloseのリストを作っていたが、こちらの方が簡潔
+
+        for char in s:
+            if char in closeToOpen:
+                if stack and stack[-1] == closeToOpen[char]: # stackがあって、かつ、最後が開きカッコと一致するとき、popする(閉じ括弧をキーとしている。)
+                    stack.pop()
+                else:
+                    return False
+
+            else:
+                stack.append(char)
+                
+        return True if not stack else False
+
+
+        
 # Example
 s1 = "()" # True
 s2 = "()[]{}" # True
@@ -42,3 +61,6 @@ assert sol.isValid(s2) == True
 assert sol.isValid(s3) == False
 assert sol.isValid(s4) == True
 assert sol.isValid(s5) == False
+
+dict = {'a': 1, 'b': 2}
+print(dict["a"])
